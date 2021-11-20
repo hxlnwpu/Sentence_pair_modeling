@@ -12,6 +12,7 @@ from tqdm import tqdm
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report
 import jsonlines
 import pandas as pd
+import csv
 
 def json2df(path):
     """
@@ -27,7 +28,24 @@ def json2df(path):
             s2.append(instance['sentence2'])
             label.append(int(instance['gold_label']))
     return pd.DataFrame({'s1':s1, 's2':s2, 'label':label})
-   
+
+#add by hxl: csv转pd
+def csv2df(path):
+    s1=[]
+    s2=[]
+    label=[]
+    with open(path, 'r', encoding='utf-8-sig') as csvfile:
+        reader = csv.reader(csvfile)
+        for index, row in enumerate(reader):
+            if index == 0:
+                continue
+            sentence1 = row[0]
+            sentence2 = row[1]
+            true_label = row[2]
+            s1.append(sentence1)
+            s2.append(sentence2)
+            label.append(int(true_label))
+    return pd.DataFrame({'s1': s1, 's2': s2, 'label': label})  
     
 def Metric(y_true, y_pred):
     """
