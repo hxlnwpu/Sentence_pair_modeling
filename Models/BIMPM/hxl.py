@@ -5,9 +5,9 @@ from utils import Metric, json2df,csv2df
 import os
 
 bq_path = "../../BQ Corpus/"
-train_df = json2df(os.path.join(bq_path, "data/train.csv"))
-dev_df = json2df(os.path.join(bq_path, "data/dev.csv"))
-test_df = json2df(os.path.join(bq_path, "data/test.csv"))
+train_df = csv2df(os.path.join(bq_path, "data/train.csv"))
+dev_df =  csv2df(os.path.join(bq_path, "data/dev.csv"))
+test_df =  csv2df(os.path.join(bq_path, "data/test.csv"))
 
 vocab_file = os.path.join(bq_path, "data/rand_word_vocab.txt")
 
