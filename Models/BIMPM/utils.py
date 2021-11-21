@@ -254,22 +254,17 @@ def test(model, dataloader):
     accuracy = 0.0
     predictions = []
     # Deactivate autograd for evaluation.
-    #add by hxl
-    with open("testResult.csv", "w+", encoding='utf-8-sig', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(["id", "sentence1", "sentence2", "true_label", "label", "similarity"])     
-        with torch.no_grad():
-            for (q, _, h, _, label) in dataloader:
-                batch_start = time.time()
-                # Move input and output data to the GPU if one is used.
-                q1 = q.to(device)
-                q2 = h.to(device)
-                labels = label.to(device)
-                _, probs = model(q1, q2)
-                writer.writerow(probs,labels)
-                accuracy += correct_predictions(probs, labels)
-                batch_time += time.time() - batch_start
-                predictions.extend(probs.cpu().numpy())
+    with torch.no_grad():
+        for (q, _, h, _, label) in dataloader:
+            batch_start = time.time()
+            # Move input and output data to the GPU if one is used.
+            q1 = q.to(device)
+            q2 = h.to(device)
+            labels = label.to(device)
+            _, probs = model(q1, q2)
+            accuracy += correct_predictions(probs, labels)
+            batch_time += time.time() - batch_start
+            predictions.extend(probs.cpu().numpy())
 
     predictions = np.array(predictions).argmax(axis = 1)
     batch_time /= len(dataloader)
