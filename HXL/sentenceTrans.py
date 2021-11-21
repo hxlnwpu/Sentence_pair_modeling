@@ -101,7 +101,7 @@ def get_bert_sim1(data_dir = "../BQ Corpus/data",result_dir ="./result_file",mod
             sentence1 = sentences1[i]
             sentence2  =sentences2[i]
             true_label = true_labels[i]
-            similarity = cosine_scores[i]
+            similarity = cosine_scores[i][i]
             label = 1 if similarity >= 0.5 else 0
             writer.writerow([id, sentence1, sentence2, true_label, label, similarity])
 
