@@ -44,7 +44,7 @@ def test():
     model_load_test(test_df = test_df, 
                     vocab_file = vocab_file, 
                     embeddings_file = None, 
-                    pretrained_file =model_file,
+                    pretrained_file = model_file,
                     test_prediction_dir = target_dir, 
                     test_prediction_name = 'test_prediction.csv', 
                     mode = 'word', 
@@ -52,6 +52,7 @@ def test():
                     max_length=64, 
                     gpu_index=0, 
                     batch_size=128)
+        
 
 
 
