@@ -6,6 +6,8 @@ Created on Sun Oct 25 00:19:30 2020
 """
 import os
 import math
+import pickle
+
 import pandas as pd
 import torch
 from torch.utils.data import DataLoader
@@ -183,6 +185,8 @@ def model_load_test(test_df, target_dir, test_prediction_dir, test_prediction_na
     if not os.path.exists(test_prediction_dir):
         os.makedirs(test_prediction_dir)
     test_prediction.to_csv(os.path.join(test_prediction_dir, test_prediction_name), index=False)
+    with open("embeddings.pkl",'rb') as e:
+        pickle.dump(bertmodel.embeddings,e)
 
 
 
