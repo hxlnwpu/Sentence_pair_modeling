@@ -8,6 +8,7 @@ import jsonlines
 import pandas as pd
 import numpy as np
 import csv
+import pickle
 
 def json2df(path):
     s1=[]
@@ -265,7 +266,14 @@ def test(model, dataloader):
             accuracy += correct_predictions(probs, labels)
             batch_time += time.time() - batch_start
             predictions.extend(probs.cpu().numpy())
-
+    sims = []
+    for sim in predictions:
+        sims.append(sim[1])
+    with open('trainBipimResult.pkl','wb') as f:
+        pickle.dump(sims,f)
+    with open('trainBipimResult.pkl','rb') as f1:
+        sims = pickle.load(f1)
+    print(sims)
     predictions = np.array(predictions).argmax(axis = 1)
     batch_time /= len(dataloader)
     total_time = time.time() - time_start

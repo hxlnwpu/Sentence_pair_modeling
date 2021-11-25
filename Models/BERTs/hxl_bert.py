@@ -1,5 +1,4 @@
 import pickle
-
 from run_Bert_model import model_train_validate_test,model_load_test
 from utils import Metric, json2df,csv2df
 import os
@@ -9,7 +8,7 @@ import os
 
 
 if __name__== '__main__':
-    bq_path = "../../BQ Corpus/"
+    bq_path = "E:/桌面/sentence_pair_modeling/BQ Corpus"
     train_df = csv2df(os.path.join(bq_path, "data/train.csv"))
     dev_df = csv2df(os.path.join(bq_path, "data/dev.csv"))
     test_df = csv2df(os.path.join(bq_path, "data/test.csv"))

@@ -191,9 +191,12 @@ def model_load_test(test_df, target_dir, test_prediction_dir, test_prediction_na
 
 
 if __name__ == "__main__":
-    lcqmc_path = "/content/drive/My Drive/Sentence_pair_modeling/LCQMC/"
-    train_df = pd.read_csv(os.path.join(lcqmc_path, "data/train.tsv"),sep='\t',header=None, names=['s1','s2','label'])
-    dev_df = pd.read_csv(os.path.join(lcqmc_path, "data/dev.tsv"),sep='\t',header=None, names=['s1','s2','label'])
-    test_df = pd.read_csv(os.path.join(lcqmc_path, "data/test.tsv"),sep='\t',header=None, names=['s1','s2','label'])
+    lcqmc_path = "E:/桌面/sentence_pair_modeling/BQ Corpus/"
+    train_df = pd.csv2df(os.path.join(lcqmc_path, "data/train.csv"),sep='\t',header=None, names=['s1','s2','label'])
+    dev_df = pd.csv2df(os.path.join(lcqmc_path, "data/dev.csv"),sep='\t',header=None, names=['s1','s2','label'])
+    test_df = pd.csv2df(os.path.join(lcqmc_path, "data/test.csv"),sep='\t',header=None, names=['s1','s2','label'])
     target_dir = os.path.join(lcqmc_path, "output/Bert/")
-    model_train_validate_test(train_df, dev_df, test_df, target_dir)
+    test_prediction_dir = ''
+    test_prediction_name = ''
+    # model_train_validate_test(train_df, dev_df, test_df, target_dir)
+    model_load_test(test_df, target_dir, test_prediction_dir, test_prediction_name)
