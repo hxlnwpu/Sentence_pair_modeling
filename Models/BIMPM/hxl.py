@@ -10,9 +10,7 @@ dev_df =  csv2df(os.path.join(bq_path, "data/dev.csv"))
 test_df =  csv2df(os.path.join(bq_path, "data/test.csv"))
 
 vocab_file = os.path.join(bq_path, "data/rand_word_vocab.txt")
-
 target_dir = os.path.join(bq_path, "output/BIMPM_word_rand/")
-
 model_file = os.path.join(bq_path,"output/BIMPM_word_rand/best.pth.tar")
 
 

@@ -16,7 +16,7 @@ from transformers.optimization import AdamW
 from sys import platform
 
 from data import DataPrecessForSentence
-from utils import train, validate, test
+from utils import train, validate, test, Metric, json2df, csv2df
 from models import BertModel
 
 def model_train_validate_test(train_df, dev_df, test_df, target_dir, 
@@ -185,18 +185,18 @@ def model_load_test(test_df, target_dir, test_prediction_dir, test_prediction_na
     if not os.path.exists(test_prediction_dir):
         os.makedirs(test_prediction_dir)
     test_prediction.to_csv(os.path.join(test_prediction_dir, test_prediction_name), index=False)
-    with open("embeddings.pkl",'rb') as e:
-        pickle.dump(bertmodel.embeddings,e)
+    # with open("embeddings.pkl",'rb') as e:
+    #     pickle.dump(bertmodel.embeddings,e)
 
 
 
 if __name__ == "__main__":
-    lcqmc_path = "E:/桌面/sentence_pair_modeling/BQ Corpus/"
-    train_df = pd.csv2df(os.path.join(lcqmc_path, "data/train.csv"),sep='\t',header=None, names=['s1','s2','label'])
-    dev_df = pd.csv2df(os.path.join(lcqmc_path, "data/dev.csv"),sep='\t',header=None, names=['s1','s2','label'])
-    test_df = pd.csv2df(os.path.join(lcqmc_path, "data/test.csv"),sep='\t',header=None, names=['s1','s2','label'])
+    lcqmc_path = "E:/桌面/sentence_pair_modeling/LCQMC/"
+    train_df = csv2df(os.path.join(lcqmc_path, "data/train.csv"))
+    dev_df = csv2df(os.path.join(lcqmc_path, "data/dev.csv"))
+    test_df = csv2df(os.path.join(lcqmc_path, "data/test.csv"))
     target_dir = os.path.join(lcqmc_path, "output/Bert/")
-    test_prediction_dir = ''
-    test_prediction_name = ''
+    test_prediction_dir = 'E:/桌面/sentence_pair_modeling/BQ Corpus/output/Bert/'
+    test_prediction_name = 'test_prediction1.csv'
     # model_train_validate_test(train_df, dev_df, test_df, target_dir)
     model_load_test(test_df, target_dir, test_prediction_dir, test_prediction_name)

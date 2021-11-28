@@ -198,9 +198,9 @@ def test(model, dataloader):
     sims = []
     for sim in predictions:
         sims.append(sim[1])
-    with open('trainNBertResult.pkl','wb') as f:
+    with open('testNBertResult.pkl','wb') as f:
         pickle.dump(sims,f)
-    with open('trainNBertResult.pkl','rb') as f1:
+    with open('testNBertResult.pkl','rb') as f1:
         sims = pickle.load(f1)
     print(sims)
     predictions = np.array(predictions).argmax(axis = 1)

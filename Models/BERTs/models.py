@@ -47,8 +47,8 @@ class BertModel(nn.Module):
         super(BertModel, self).__init__()
         self.num_labels = num_labels
         self.embeddings = list()
-        self.bert = BertForSequenceClassification.from_pretrained('bert-base-chinese',num_labels = self.num_labels)
-        self.tokenizer = BertTokenizer.from_pretrained('bert-base-chinese', do_lower_case=True)
+        self.bert = BertForSequenceClassification.from_pretrained('../../download/bert-base-chinese',num_labels = self.num_labels)
+        self.tokenizer = BertTokenizer.from_pretrained('../../download/bert-base-chinese', do_lower_case=True)
         self.requires_grad = requires_grad
         self.device = torch.device("cuda")
         for param in self.bert.parameters():
@@ -106,8 +106,8 @@ class RobertModel(nn.Module):
     def __init__(self, requires_grad = True, num_labels = 2):
         super(RobertModel, self).__init__()
         self.num_labels = num_labels
-        self.bert = BertForSequenceClassification.from_pretrained('hfl/chinese-roberta-wwm-ext', num_labels = self.num_labels)
-        self.tokenizer = AutoTokenizer.from_pretrained('hfl/chinese-roberta-wwm-ext', do_lower_case=True)
+        self.bert = BertForSequenceClassification.from_pretrained('../../download/chinese-roberta-wwm-ext', num_labels = self.num_labels)
+        self.tokenizer = BertTokenizer.from_pretrained('../../download/chinese-roberta-wwm-ext', do_lower_case=True)
         
         # self.bert = RobertaForSequenceClassification.from_pretrained('roberta-base', num_labels = self.num_labels)
         # self.tokenizer = AutoTokenizer.from_pretrained('roberta-base', do_lower_case=True)
