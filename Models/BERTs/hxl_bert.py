@@ -1,7 +1,6 @@
 from run_Bert_model import model_train_validate_test,model_load_test
 from utils import Metric, json2df,csv2df
 import os
-import pandas as pd
 
 
 # BQ Corpus
