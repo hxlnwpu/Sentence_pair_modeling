@@ -14,7 +14,7 @@ if __name__== '__main__':
     test_prediction_dir = 'E:/桌面/sentence_pair_modeling/BQ Corpus/output/Bert/'
     test_prediction_name = 'train_prediction.csv'
     # model_train_validate_test(train_df, dev_df, test_df, target_dir)
-    model_load_test(test_df, target_dir, test_prediction_dir, test_prediction_name)
+    model_load_test(train_df, target_dir, test_prediction_dir, test_prediction_name)
 
 # LCQMC
 # if __name__== '__main__':
