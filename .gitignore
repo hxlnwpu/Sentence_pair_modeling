@@ -3,7 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 BQ Corpus/output
+BQ Corpus/vector
 LCQMC/output
+LCQMC/vector
 # C extensions
 *.so
 download

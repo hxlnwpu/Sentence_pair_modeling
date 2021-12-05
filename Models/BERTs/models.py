@@ -59,7 +59,7 @@ class BertModel(nn.Module):
                               token_type_ids=batch_seq_segments, labels = labels)[:2]
         embedding = self.bert.bert(input_ids = batch_seqs, attention_mask = batch_seq_masks,
                               token_type_ids=batch_seq_segments).pooler_output
-        self.embeddings.extend(list(embedding))
+        self.embeddings.extend(embedding.cpu().numpy().tolist())
         probabilities = nn.functional.softmax(logits, dim=-1)
         return loss, logits, probabilities
 
