@@ -195,14 +195,14 @@ def test(model, dataloader):
             accuracy += correct_predictions(probabilities, labels)
             batch_time += time.time() - batch_start
             predictions.extend(probabilities.cpu().numpy())
-    sims = []
-    for sim in predictions:
-        sims.append(sim[1])
-    with open('trainNBertResult.pkl','wb') as f:
-        pickle.dump(sims,f)
-    with open('trainNBertResult.pkl','rb') as f1:
-        sims = pickle.load(f1)
-    print(sims)
+    # sims = []
+    # for sim in predictions:
+    #     sims.append(sim[1])
+    # with open('trainNBertResult.pkl','wb') as f:
+    #     pickle.dump(sims,f)
+    # with open('trainNBertResult.pkl','rb') as f1:
+    #     sims = pickle.load(f1)
+    # print(sims)
     predictions = np.array(predictions).argmax(axis = 1)
     batch_time /= len(dataloader)
     total_time = time.time() - time_start
