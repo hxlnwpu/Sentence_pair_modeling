@@ -3,20 +3,21 @@ import pickle
 from run_Bert_model import model_train_validate_test,model_load_test
 from utils import Metric, json2df,csv2df
 import os
+import pandas as pd
 
 
 # BQ Corpus
-# if __name__== '__main__':
-#     bq_path = "E:/桌面/sentence_pair_modeling/BQ Corpus"
-#     train_df = csv2df(os.path.join(bq_path, "data/train.csv"))
-#     dev_df = csv2df(os.path.join(bq_path, "data/dev.csv"))
-#     test_df = csv2df(os.path.join(bq_path, "data/test.csv"))
-#     target_dir = os.path.join(bq_path, "output/Bert/")
-#     test_prediction_dir = 'E:/桌面/sentence_pair_modeling/BQ Corpus/output/Bert/'
-#     test_prediction_name = 'train_prediction.csv'
-#     # model_train_validate_test(train_df, dev_df, test_df, target_dir)
-#     model_load_test(train_df, target_dir, test_prediction_dir, test_prediction_name)
-#     print("end")
+if __name__== '__main__':
+    bq_path = "E:/桌面/sentence_pair_modeling/BQ Corpus"
+    train_df = csv2df(os.path.join(bq_path, "data/train.csv"))
+    dev_df = csv2df(os.path.join(bq_path, "data/dev.csv"))
+    test_df = csv2df(os.path.join(bq_path, "data/test.csv"))
+    target_dir = os.path.join(bq_path, "output/Bert/")
+    test_prediction_dir = 'E:/桌面/sentence_pair_modeling/BQ Corpus/output/Bert/'
+    test_prediction_name = 'train_prediction.csv'
+    # model_train_validate_test(train_df, dev_df, test_df, target_dir)
+    model_load_test(train_df, target_dir, test_prediction_dir, test_prediction_name)
+    print("end")
 
 # LCQMC
 if __name__== '__main__':
