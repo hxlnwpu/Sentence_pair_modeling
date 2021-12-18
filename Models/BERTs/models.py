@@ -107,6 +107,7 @@ class RobertModel(nn.Module):
     def __init__(self, requires_grad = True, num_labels = 2):
         super(RobertModel, self).__init__()
         self.num_labels = num_labels
+        self.embeddings = list()
         self.bert = BertForSequenceClassification.from_pretrained('../../download/chinese-roberta-wwm-ext', num_labels = self.num_labels)
         self.tokenizer = BertTokenizer.from_pretrained('../../download/chinese-roberta-wwm-ext', do_lower_case=True)
         
@@ -120,6 +121,10 @@ class RobertModel(nn.Module):
     def forward(self, batch_seqs, batch_seq_masks, batch_seq_segments, labels):
         loss, logits = self.bert(input_ids = batch_seqs, attention_mask = batch_seq_masks, 
                               token_type_ids=batch_seq_segments, labels = labels)[:2]
+        # todo : 此处拿向量
+        embedding = self.bert.bert(input_ids=batch_seqs, attention_mask=batch_seq_masks,
+                                   token_type_ids=batch_seq_segments).pooler_output
+        self.embeddings.extend(embedding.cpu().numpy().tolist())
         probabilities = nn.functional.softmax(logits, dim=-1)
         return loss, logits, probabilities
         

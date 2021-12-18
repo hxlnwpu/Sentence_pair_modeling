@@ -16,6 +16,7 @@ from sys import platform
 from data import DataPrecessForSentence
 from utils import train, validate, test
 from models import RobertModel
+import pickle
 
 def model_train_validate_test(train_df, dev_df, test_df, target_dir, 
          max_seq_len=64,
@@ -182,6 +183,8 @@ def model_load_test(test_df, target_dir, test_prediction_dir, test_prediction_na
     if not os.path.exists(test_prediction_dir):
         os.makedirs(test_prediction_dir)
     test_prediction.to_csv(os.path.join(test_prediction_dir,test_prediction_name), index=False)
+    with open("test_embeddings.pkl","wb") as e:
+        pickle.dump(bertmodel.embeddings,e)
 
 
 if __name__ == "__main__":
