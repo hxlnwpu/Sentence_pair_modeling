@@ -60,7 +60,7 @@ class BertModel(nn.Module):
         #todo : 此处拿向量
         embedding = self.bert.bert(input_ids = batch_seqs, attention_mask = batch_seq_masks,
                               token_type_ids=batch_seq_segments).pooler_output
-        self.embeddings.extend(embedding.cpu().numpy().tolist())
+        self.embeddings.extend(embedding.cpu().detach().numpy().tolist())
         probabilities = nn.functional.softmax(logits, dim=-1)
         return loss, logits, probabilities
 
@@ -124,7 +124,7 @@ class RobertModel(nn.Module):
         # todo : 此处拿向量
         embedding = self.bert.bert(input_ids=batch_seqs, attention_mask=batch_seq_masks,
                                    token_type_ids=batch_seq_segments).pooler_output
-        self.embeddings.extend(embedding.cpu().numpy().tolist())
+        self.embeddings.extend(embedding.cpu().detach().numpy().tolist())
         probabilities = nn.functional.softmax(logits, dim=-1)
         return loss, logits, probabilities
         

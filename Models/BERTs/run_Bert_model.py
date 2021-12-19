@@ -159,7 +159,7 @@ def model_train_validate_test(train_df, dev_df, test_df, target_dir,
             break
 
 
-def model_load_test(test_df, target_dir, test_prediction_dir, test_prediction_name, num_labels=2, max_seq_len=64, batch_size=32):
+def model_load_test(test_df, target_dir, test_prediction_dir, test_prediction_name, num_labels=2, max_seq_len=64, batch_size=32,get_embeddings = True,embedding_name="bert_train_embeddings.pkl",sim_name="testNBertResult.pkl"):
     bertmodel = BertModel(requires_grad = False, num_labels=num_labels)
     tokenizer = bertmodel.tokenizer
     device = torch.device("cuda")
@@ -179,14 +179,16 @@ def model_load_test(test_df, target_dir, test_prediction_dir, test_prediction_na
     model = bertmodel.to(device)
     model.load_state_dict(checkpoint["model"])
     print(20 * "=", " Testing BERT model on device: {} ".format(device), 20 * "=")
-    batch_time, total_time, accuracy, predictions = test(model, test_loader)
+    batch_time, total_time, accuracy, predictions = test(model, test_loader,getsims=True,sim_name = sim_name)
     print("\n-> Average batch processing time: {:.4f}s, total test time: {:.4f}s, accuracy: {:.4f}%\n".format(batch_time, total_time, (accuracy*100)))
     test_prediction = pd.DataFrame({'prediction':predictions})
     if not os.path.exists(test_prediction_dir):
         os.makedirs(test_prediction_dir)
     test_prediction.to_csv(os.path.join(test_prediction_dir, test_prediction_name), index=False)
-    with open("test_embeddings.pkl","wb") as e:
-        pickle.dump(bertmodel.embeddings,e)
+    if get_embeddings:
+        file_name = os.path.join(test_prediction_dir,embedding_name)
+        with open(file_name,"wb") as e:
+            pickle.dump(bertmodel.embeddings,e)
 
 
 

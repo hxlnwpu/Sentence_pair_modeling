@@ -31,7 +31,7 @@ def json2df(path):
     return pd.DataFrame({'s1':s1, 's2':s2, 'label':label})
 
 #add by hxl: csv转pd
-def csv2df(path,train_ratio):
+def csv2df(path,train_ratio=1):
     s1=[]
     s2=[]
     label=[]
@@ -169,7 +169,7 @@ def validate(model, dataloader):
     return epoch_time, epoch_loss, epoch_accuracy, predictions
 
 
-def test(model, dataloader):
+def test(model, dataloader,getsims = False,sim_name = "testNBertResult.pkl"):
     """
     Test the accuracy of a model on some labelled test dataset.
     Args:
@@ -198,14 +198,12 @@ def test(model, dataloader):
             accuracy += correct_predictions(probabilities, labels)
             batch_time += time.time() - batch_start
             predictions.extend(probabilities.cpu().numpy())
-    # sims = []
-    # for sim in predictions:
-    #     sims.append(sim[1])
-    # with open('trainNBertResult.pkl','wb') as f:
-    #     pickle.dump(sims,f)
-    # with open('trainNBertResult.pkl','rb') as f1:
-    #     sims = pickle.load(f1)
-    # print(sims)
+    if getsims:
+        sims = []
+        for sim in predictions:
+            sims.append(sim[1])
+        with open(sim_name,"wb") as f:
+            pickle.dump(sims, f)
     predictions = np.array(predictions).argmax(axis = 1)
     batch_time /= len(dataloader)
     total_time = time.time() - time_start
